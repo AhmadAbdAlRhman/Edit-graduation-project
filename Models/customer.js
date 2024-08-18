@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const bcrypt = require("bcryptjs"); 
 const sequelize = require("../config/database");
 const Customer = sequelize.define(
   "customer",
@@ -57,7 +58,20 @@ const Customer = sequelize.define(
   {
     tableName: "customers",
     timestamps: false, // if you don't have timestamp fields
+  },
+  {
+    hooks:{
+      beforeCreate: async (user) => {
+        console.log("Ahmad");
+        user.password = await bcrypt.hash(user.password, 10);
+      }
+    }
   }
 );
+
+Customer.prototype.validatePassword = function (password) {
+  return bcrypt.compare(password, this.password);
+}
+
 
 module.exports = Customer;
