@@ -1,6 +1,6 @@
 const Customer = require("../../Models/customer");
 const passport = require("passport");
-
+const bcrypt = require("bcryptjs");
 module.exports.Register = async (req, res, next) => {
   try {
     const { first_name, second_name, email, password, telephone, address } = req.body;    
@@ -8,11 +8,13 @@ module.exports.Register = async (req, res, next) => {
     if (customer){
         return res.status(404).json({ message: "This email is existed" });
     }
+    let salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
     const newCustomer = await Customer.create({
       first_name,
       second_name,
       email,
-      password,
+      password: hashedPassword,
       telephone,
       address,
     });

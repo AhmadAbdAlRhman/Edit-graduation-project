@@ -3,9 +3,11 @@ const session = require('express-session');
 const path = require("path");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cors = require("cors");
 require("dotenv").config();
 require("./Models/models");
+const sequelize = require('./config/database');
 const port = process.env.PORT || 5000; 
 const app = express();
 app.use(express.json());
@@ -18,11 +20,16 @@ const corsOption = {
   optionSuccessStatus: 200,
 };
 app.use(cors(corsOption));
-app.use(session({
-    secret: 'Editing-Graduation-Project',
+app.use(
+  session({
+    secret: "Editing-Graduation-Project",
     resave: false,
-    saveUninitialized: true
-}));
+    saveUninitialized: true,
+    store: new SequelizeStore({
+      db: sequelize,
+    }),
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 require('./controller/authentication/passport')(passport);

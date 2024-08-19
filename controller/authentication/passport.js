@@ -6,7 +6,7 @@ module.exports = function (passport) {
   // Local Strategy for login
   passport.use(
     new LocalStrategy(
-      { email: "email" },
+      { usernameField: "email" },
       async (email, password, done) => {
         try {
           const user = await Customer.findOne({ where: { email } });

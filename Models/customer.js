@@ -63,15 +63,13 @@ const Customer = sequelize.define(
     hooks:{
       beforeCreate: async (user) => {
         console.log("Ahmad");
-        user.password = await bcrypt.hash(user.password, 10);
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
       }
     }
   }
 );
-
 Customer.prototype.validatePassword = function (password) {
   return bcrypt.compare(password, this.password);
 }
-
-
 module.exports = Customer;
