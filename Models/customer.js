@@ -12,15 +12,19 @@ const Customer = sequelize.define(
     },
     first_name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    googleId: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
     second_name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
       validate: {
         isEmail: true,
@@ -28,7 +32,7 @@ const Customer = sequelize.define(
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     telephone: {
@@ -60,13 +64,13 @@ const Customer = sequelize.define(
     timestamps: false, // if you don't have timestamp fields
   },
   {
-    hooks:{
+    hooks: {
       beforeCreate: async (user) => {
         console.log("Ahmad");
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt);
-      }
-    }
+      },
+    },
   }
 );
 Customer.prototype.validatePassword = function (password) {
