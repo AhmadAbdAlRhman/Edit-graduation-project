@@ -7,16 +7,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cors = require("cors");
 require("dotenv").config();
 const models = require("./Models/models");
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
-  {
-    dialect: "mysql",
-    host: process.env.DB_HOST,
-  }
-);
+const sequelize = require('./config/database');
 const port = process.env.PORT || 5000; 
 const app = express();
 require('./controller/authentication/OAuth');
