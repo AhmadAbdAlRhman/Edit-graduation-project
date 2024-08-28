@@ -35,6 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./controller/authentication/passport')(passport);
 app.use(require('./Route/authentication'));
+app.use(require('./Route/OAuth'));
 app.listen(port,()=>{
     console.log(`Server running at http://localhost:port`);
 })
