@@ -8,13 +8,13 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
   }
 );
-require("./customer"),
-  require("./notifications"),
-  require("./order"),
-  require("./product_images"),
-  require("./product"),
-  require("./store"),
-  require("./bank");
+  const customer = require("./customer");
+  const notifications = require("./notifications");
+  const order = require("./order");
+  const product_image = require("./product_images");
+  const product = require("./product");
+  const store = require("./store");
+  const bank = require("./bank");
 
 (async () => {
   try {
