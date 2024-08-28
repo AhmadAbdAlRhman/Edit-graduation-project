@@ -6,7 +6,7 @@ const passport = require("passport");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cors = require("cors");
 require("dotenv").config();
-require("./Models/models");
+const models = require("./Models/models");
 const sequelize = require('./config/database');
 const port = process.env.PORT || 5000; 
 const app = express();
