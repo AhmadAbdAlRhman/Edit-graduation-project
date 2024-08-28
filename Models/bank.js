@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../config/database");
 
-const store = require("./Store");
+const store = require("./store");
 const Customer = require("./customer");
 
 const Bank = sequelize.define(

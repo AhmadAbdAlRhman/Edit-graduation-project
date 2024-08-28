@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../config/database");
 const Product = require("./product");
-const Store = require("./Store");
+const Store = require("./store");
 const Order = require("./order");
 
 const Notifications = sequelize.define(
