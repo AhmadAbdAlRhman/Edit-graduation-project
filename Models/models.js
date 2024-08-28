@@ -1,11 +1,20 @@
-const sequelize = require("../config/database");
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
+  {
+    dialect: "mysql",
+    host: process.env.DB_HOST,
+  }
+);
 require("./customer"),
-require("./notifications"),
-require("./order"),
-require("./product_images"),
-require("./product"),
-require("./store"),
-require("./bank");
+  require("./notifications"),
+  require("./order"),
+  require("./product_images"),
+  require("./product"),
+  require("./store"),
+  require("./bank");
 
 (async () => {
   try {
